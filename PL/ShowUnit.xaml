@@ -1,0 +1,111 @@
+﻿<Window x:Class="PL.ShowUnit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ShowUnit" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:AreaConverter x:Key="AreaConverter"/>
+    </Window.Resources>
+    <Border Padding="10" Background="Khaki">
+        <StackPanel>
+
+            <TextBlock Text="Hosting Unit Form" FontSize="20" Margin="0 10"/>
+
+
+            <!--location-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock  Text="Address" FontSize="20" Margin="0 10" Grid.Column="0" HorizontalAlignment="left" />
+                <TextBox x:Name="Location" Padding="2" Background="#eee" IsReadOnly="True" Grid.Column="1" Margin="0" Height="26"/>
+            </Grid>
+            <!--name-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock  Text="Name" FontSize="20" Margin="0 10" Grid.Column="0" HorizontalAlignment="left" />
+                <TextBox x:Name="Name" Padding="2" Background="#eee" IsReadOnly="True" Grid.Column="1" Margin="0" Height="26"/>
+            </Grid>
+            <!--guest info-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock  Text="Number Of Adults" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <TextBox x:Name="AdultsNum"  Background="#eee" IsReadOnly="True" Padding="2"  MaxLength="2"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Number Of Children" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <TextBox  x:Name="ChildrenNum"  Background="#eee" IsReadOnly="True" Padding="2" MaxLength="2"/>
+                </StackPanel>
+
+            </Grid>
+            <!--guest choices-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Area" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <ComboBox x:Name="Area" Padding="2">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock  Text="{Binding Converter={StaticResource AreaConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Type" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <ComboBox x:Name="Type" Padding="2" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Pool" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <ComboBox x:Name="Pool" Padding="2" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Column="3">
+                    <TextBlock Text="Jacuzzi" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <ComboBox x:Name="Jacuzzi" Padding="2" IsReadOnly="True"/>
+                </StackPanel>
+
+            </Grid>
+
+            <!--more guest choices-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Garden" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <ComboBox x:Name="Garden" Padding="2" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Children Attraction" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <ComboBox x:Name="Children" Padding="2" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Price" FontSize="20" Margin="0 10" Grid.Column="0"/>
+                    <TextBox  x:Name="Price"  Padding="2" Background="#eee" IsReadOnly="True"/>
+                </StackPanel>
+            </Grid>
+
+        </StackPanel>
+    </Border>
+</Window>

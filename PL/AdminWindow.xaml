@@ -1,0 +1,294 @@
+﻿<Window x:Class="PL.AdminWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:PL"
+		mc:Ignorable="d"
+		Title="AdminWindow" Height="560" Width="800"
+		WindowStartupLocation="CenterScreen">
+	<Window.Resources>
+		<DataTemplate x:Key="RequestTemplate">
+			<Grid Margin="0,2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding GuestRequestKey}" Grid.Column="0" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding GuestPrivateName}" Grid.Column="1" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding GuestFamilyName}" Grid.Column="2" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding GuestMailAddress}" Grid.Column="3" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding RequestArea}" Grid.Column="4" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding RequestType}" Grid.Column="5" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+		  
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="OrderTemplate">
+			<Grid Margin="0,2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding OrderKey}" Grid.Column="0" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding OrderUnitKey}" Grid.Column="1" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding OrderRequestKey}" Grid.Column="2" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding OrderCreation}" Grid.Column="3" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding EmailDelivery}" Grid.Column="4" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding OrderStatus}" Grid.Column="5" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="HostingUnitTemplate">
+			<Grid Margin="0,2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding HostingUnitKey}" Grid.Column="0" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding HostingUnitName}" Grid.Column="1" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding UnitPrice}" Grid.Column="2" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding UnitArea}" Grid.Column="3" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding UnitType}" Grid.Column="4" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding Location}" Grid.Column="5" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="HostTemplate">
+			<Grid Margin="0,2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding HostKey}" Grid.Column="0" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding HostPrivateName}" Grid.Column="1" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding HostFamilyName}" Grid.Column="2" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding HostPhoneNumber}" Grid.Column="3" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+				<TextBlock Text="{Binding HostEmail}" Grid.Column="4" FontSize="15" FontWeight="Black" Margin="10,0,10,0"/>
+			   
+			</Grid>
+		</DataTemplate>
+	</Window.Resources>
+
+	<Grid>
+		<TabControl>
+			<TabItem Header="Hosting Units">
+				<Border Padding="10" Background="Gold">
+					<StackPanel>
+						<TextBlock  Margin="10 0 0 0" Grid.Column="1" Text="Hosting Units" FontSize="30" FontWeight="Black" HorizontalAlignment="Center"/>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Button x:Name="GroupByPeepsUnit" Content="Group By Number Of Occupancies " Grid.Column="0" Click="GroupByPeepsUnit_Click"/>
+							<Button x:Name="GroupByAreaUnit" Content="Group By Area" Grid.Column="1"  Click="GroupByAreaUnit_Click"/>
+							<Button x:Name="RefreshUnit" Content="Refresh List" Grid.Column="2" Click="RefreshUnit_Click"   />
+
+						</Grid>
+						<ListBox Height="350" Grid.Column="1" Margin="11,0,10,0" Name="HostingBox" ItemsSource="{Binding}" 
+								 ItemTemplate="{StaticResource HostingUnitTemplate}"
+								 HorizontalAlignment="Stretch"
+								 MouseDoubleClick="HostingBox_MouseDoubleClick">
+						</ListBox>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Button x:Name="UnitStatClosed" Content="Number Closed Order Through Unit " Grid.Column="0" Click="UnitStatClosed_Click"/>
+							<Button x:Name="UnitStatSent" Content="Number Request Sent Through Unit " Grid.Column="1" Click="UnitStatSent_Click"/>
+						</Grid>
+					</StackPanel>
+				</Border>
+			</TabItem>
+			<TabItem Header="Request">
+				<Border Padding="10" Background="Gold">
+					<StackPanel>
+						<TextBlock  Margin="10 0 0 0" Grid.Column="1" Text="Request List" FontSize="30" FontWeight="Black" HorizontalAlignment="Center"/>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Button x:Name="GroupByPeepsRequest" Content="Group By Number Of Vacationers" Grid.Column="0" Click="GroupByPeepsRequest_Click" />
+							<Button x:Name="GroupByAreaRequest" Content="Group By Area" Grid.Column="1" Click="GroupByAreaRequest_Click" />
+							<Button x:Name="RefreshRequest" Content="Refresh List" Grid.Column="2" Click="RefreshRequest_Click"/>
+
+						</Grid>
+
+						<ListBox Height="350" Grid.Column="1" Margin="11,0,10,0" Name="RequestBox" ItemsSource="{Binding}" 
+								 ItemTemplate="{StaticResource RequestTemplate}"
+								 HorizontalAlignment="Stretch"
+								 MouseDoubleClick="RequestBox_MouseDoubleClick">
+						</ListBox>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Button x:Name="RequestStat" Content="Number Of Orders Sent To Request" Grid.Column="0" Click="RequestStat_Click" />
+
+						</Grid>
+							
+					</StackPanel>
+				</Border>
+			</TabItem>
+			<TabItem Header="Order">
+				<Border Padding="10" Background="Gold">
+					<StackPanel>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="2*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<TextBlock   Grid.Column="1" Text="Orders List" FontSize="30" FontWeight="Black" HorizontalAlignment="Center"/>
+
+						</Grid>
+						
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							
+							<Button x:Name="RefreshOrder" Content="Refresh List" Grid.Column="1" Click="RefreshOrder_Click"/>
+
+						</Grid>
+						<ListBox Height="350" Grid.Column="1" Margin="11,0,10,0" x:Name="OrderBox" ItemsSource="{Binding}" 
+								 ItemTemplate="{StaticResource OrderTemplate}"
+								 HorizontalAlignment="Stretch"
+								 MouseDoubleClick="OrderBox_MouseDoubleClick" />
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							 </Grid.ColumnDefinitions>
+							<Button x:Name="Month1" Content="January Commission" Grid.Column="0" Click="Month1_Click_1"/>
+							<Button x:Name="Month2" Content="February Commission" Grid.Column="1" Click="Month2_Click"/>
+							<Button x:Name="Month3" Content="March Commission" Grid.Column="2" Click="Month3_Click"/>
+							<Button x:Name="Month4" Content="April Commission" Grid.Column="3" Click="Month4_Click"/>
+							<Button x:Name="Month5" Content="May Commission" Grid.Column="4" Click="Month5_Click"/>
+							<Button x:Name="Month6" Content="June Commission" Grid.Column="5" Click="Month6_Click"/>
+						</Grid>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Button x:Name="Month7" Content="July Commission" Grid.Column="0" Click="Month7_Click"/>
+							<Button x:Name="Month8" Content="August Commission" Grid.Column="1" Click="Month8_Click"/>
+							<Button x:Name="Month9" Content="September Commission" Grid.Column="2" Click="Month9_Click"/>
+							<Button x:Name="Month10" Content="October Commission" Grid.Column="3" Click="Month10_Click"/>
+							<Button x:Name="Month11" Content="November Commission" Grid.Column="4" Click="Month11_Click"/>
+							<Button x:Name="Month12" Content="December Commission" Grid.Column="5" Click="Month12_Click"/>
+						</Grid>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="3*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<Button x:Name="OrderSent" Content="Get Order" Grid.Column="2" Click="OrderSent_Click"/>
+							<TextBlock Text="Get Orders Since they were created greater than this number => " FontSize="15" Grid.Column="0" FontStretch="Expanded"/>
+                            <TextBox x:Name="OrderDays" Grid.Column="1" PreviewTextInput="OrderDays_PreviewTextInput"/>
+						</Grid>
+
+					</StackPanel>
+				</Border>
+			</TabItem>
+			<TabItem Header="Host">
+				<Border Padding="10" Background="Gold">
+					<StackPanel>
+						<TextBlock  Margin="308,0,297,0" Text="Host List" FontSize="30" FontWeight="Black" HorizontalAlignment="Center"/>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							
+							<Button x:Name="RefreshHost" Content="Refresh List" Grid.Column="2" Click="RefreshHost_Click"/>
+
+						</Grid>
+						<ListBox Height="350" Grid.Column="1" Margin="11,0,10,0" x:Name="HostBox" ItemsSource="{Binding}" 
+								 ItemTemplate="{StaticResource HostTemplate}"
+								 HorizontalAlignment="Stretch"
+								 MouseDoubleClick="HostBox_MouseDoubleClick"/>
+						
+						
+						 
+					</StackPanel>
+				</Border>
+			</TabItem>
+			<TabItem Header="Misc">
+				<Border Padding="10" Background="Gold">
+					<StackPanel>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="4*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<TextBlock   Grid.Column="1" Text="Admin Configuration settings" FontSize="30" FontWeight="Black" HorizontalAlignment="Center"/>
+
+						</Grid>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="4*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<TextBlock   Grid.Column="0" Text="Current commission amount:" FontSize="30" FontWeight="Black" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="commissionText" Grid.Column="1"/>
+                            <Button x:Name="UpdateCommission" Content="Update" Grid.Column="2" Click="UpdateCommission_Click"/>
+                            <TextBox x:Name="commissionUpdate" Grid.Column="3" PreviewTextInput="commissionUpdate_PreviewTextInput"/>
+                        </Grid>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="4*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+                            <TextBox x:Name="expirationText" Grid.Column="1"/>
+                            <TextBlock   Grid.Column="0" Text="Current expiration date:" FontSize="30" FontWeight="Black" HorizontalAlignment="Left"/>
+                            <Button x:Name="UpdateDate" Content="Update" Grid.Column="2" Click="UpdateDate_Click" />
+                            <TextBox x:Name="expirationUpdate" Grid.Column="3" PreviewTextInput="expirationUpdate_PreviewTextInput"/>
+                        </Grid>
+					</StackPanel>
+				</Border>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>
